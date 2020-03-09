@@ -10,6 +10,7 @@ dotenv.config()
 import config from '~/config'
 import db from '~/db'
 import repository from '~/lib/repository'
+import modules from '~/modules'
 
 const app = express()
 
@@ -19,18 +20,15 @@ db.then(con => {
 
   // Set context
   app.use((req, res, next) => {
-    req.context = {
+    req.ctx = {
       repo: repository.init(con),
     }
 
     next()
   })
 
-  app.get('/', (req, res) => {
-    return res.json({
-      msg: 'Hello',
-    })
-  })
+  // Register modules
+  app.use(modules)
 
   app.listen(config.app.port, () => {
     console.log(`Server listening on http://localhost:${config.app.port}`)

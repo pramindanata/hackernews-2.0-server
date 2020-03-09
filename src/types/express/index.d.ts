@@ -1,5 +1,5 @@
 declare namespace Express {
   interface Request {
-    context: import('../../interface').RequestContext
+    ctx: import('../../interface').RequestContext
   }
 }
