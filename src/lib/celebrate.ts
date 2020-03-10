@@ -25,6 +25,7 @@ function getMessages(error: ValidationError): I.JoiErrorMessages {
 export default (schema: SchemaOptions): RequestHandler => {
   const joiOpt: BaseValidationOptions = {
     abortEarly: false,
+    convert: true,
   }
 
   return celebrate(schema, joiOpt)

@@ -1,14 +1,33 @@
 import { Response } from 'express'
 import { Request } from 'express-serve-static-core'
 import parseDomain from 'parse-domain'
+import { ILike } from '~/lib/typeorm'
 import * as RI from '~/interface'
 import * as I from './interface'
 
 class Controller {
   async index(req: Request, res: Response): Promise<Response> {
-    const news: RI.News[] = await req.ctx.repo.news.find()
+    const { query }: { query: I.IndexQuery } = req
+    const sortKey = 'createdAt'
+    let where
+
+    if (query.search) {
+      const like = `%${query.search}%`
+      where = [{ title: ILike(like) }, { url: ILike(like) }, { domain: ILike(like) }]
+    }
+
+    const news: RI.News[] = await req.ctx.repo.news.find({
+      where,
+      order: {
+        [sortKey]: query.order,
+      },
+      skip: query.skip,
+      take: query.limit,
+    })
+    const total: number = await req.ctx.repo.news.count()
 
     return res.json({
+      total,
       data: news,
     })
   }

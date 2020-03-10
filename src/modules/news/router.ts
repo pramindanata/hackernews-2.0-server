@@ -8,7 +8,7 @@ import { schema } from './util'
 const controller = new Controller()
 const router = Router()
 
-router.get('/', wrapAsync(controller.index))
+router.get('/', celebrate(schema.index), wrapAsync(controller.index))
 router.get('/:id', celebrate(schema.getOne), wrapAsync(controller.show))
 router.post('/', celebrate(schema.store), wrapAsync(controller.store))
 router.put('/:id', celebrate(schema.update), wrapAsync(controller.update))

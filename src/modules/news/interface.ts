@@ -2,6 +2,14 @@ interface Params {
   [key: string]: string
 }
 
+export interface IndexQuery {
+  search?: string
+  sort: 'published' | 'upvote'
+  order: 'ASC' | 'DESC'
+  limit: number
+  skip: number
+}
+
 export interface GetOneParams extends Params {
   id: string
 }
