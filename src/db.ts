@@ -1,8 +1,10 @@
 import { createConnection } from 'typeorm'
 import config from '~/config'
-import News from '~/model/News'
 
-const entities = [News]
+import News from '~/model/News'
+import User from '~/model/User'
+
+const entities = [News, User]
 const { db } = config
 const connection = createConnection({
   type: 'postgres',
