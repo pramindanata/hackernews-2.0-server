@@ -10,6 +10,7 @@ dotenv.config()
 import config from '~/config'
 import db from '~/db'
 import repository from '~/lib/repository'
+import Boom from '~/lib/Boom'
 import modules from '~/modules'
 
 const app = express()
@@ -23,6 +24,8 @@ db.then(con => {
     req.ctx = {
       repo: repository.init(con),
     }
+
+    res.boom = new Boom(res)
 
     next()
   })
