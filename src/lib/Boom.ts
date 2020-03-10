@@ -12,6 +12,7 @@ export default class Boom {
     const baseMessage = 'Unauthenticated'
 
     return this.res.status(status).json({
+      code: status,
       message: message || baseMessage,
     })
   }
@@ -21,6 +22,7 @@ export default class Boom {
     const baseMessage = 'Forbidden'
 
     return this.res.status(status).json({
+      code: status,
       message: message || baseMessage,
     })
   }
@@ -30,6 +32,7 @@ export default class Boom {
     const baseMessage = 'Data not found'
 
     return this.res.status(status).json({
+      code: status,
       message: message || baseMessage,
     })
   }
@@ -39,6 +42,7 @@ export default class Boom {
     const baseMessage = 'Bad data'
 
     return this.res.status(status).json({
+      code: status,
       message: message || baseMessage,
       data,
     })

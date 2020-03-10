@@ -9,7 +9,7 @@ class News {
   title!: string
 
   @Column()
-  source!: string
+  domain!: string
 
   @Column()
   url!: string

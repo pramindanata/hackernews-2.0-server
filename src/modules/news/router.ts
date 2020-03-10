@@ -1,23 +1,17 @@
 import { Router } from 'express'
-import { Joi } from 'celebrate'
-import Controller from './Controller'
 import celebrate from '~/lib/celebrate'
 import { wrapAsync } from '~/util/controller'
+
+import Controller from './Controller'
+import { schema } from './util'
 
 const controller = new Controller()
 const router = Router()
 
 router.get('/', wrapAsync(controller.index))
-router.get('/:id', wrapAsync(controller.show))
-router.post(
-  '/',
-  celebrate({
-    body: Joi.object({
-      title: Joi.number().required(),
-      url: Joi.number().required(),
-    }),
-  }),
-  wrapAsync(controller.store),
-)
+router.get('/:id', celebrate(schema.getOne), wrapAsync(controller.show))
+router.post('/', celebrate(schema.store), wrapAsync(controller.store))
+router.put('/:id', celebrate(schema.update), wrapAsync(controller.update))
+router.delete('/:id', celebrate(schema.delete), wrapAsync(controller.delete))
 
 export default router
