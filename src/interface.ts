@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm'
 import News from '~/model/News'
-import Boom from '~/lib/boom'
+import Boom from '~/lib/Boom'
 
 export { News, Boom }
 
