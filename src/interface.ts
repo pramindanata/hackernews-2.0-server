@@ -11,3 +11,7 @@ export interface DBRepository {
 export interface RequestContext {
   repo: DBRepository
 }
+
+export interface JoiErrorMessages {
+  [key: string]: string[]
+}

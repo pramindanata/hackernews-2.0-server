@@ -9,9 +9,11 @@ dotenv.config()
 
 import config from '~/config'
 import db from '~/db'
-import repository from '~/lib/repository'
-import Boom from '~/lib/Boom'
 import modules from '~/modules'
+
+import Boom from '~/lib/Boom'
+import { errors } from '~/lib/celebrate'
+import repository from '~/lib/repository'
 
 const app = express()
 
@@ -32,6 +34,7 @@ db.then(con => {
 
   // Register modules
   app.use(modules)
+  app.use(errors())
 
   app.listen(config.app.port, () => {
     console.log(`Server listening on http://localhost:${config.app.port}`)

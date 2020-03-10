@@ -6,5 +6,4 @@ export interface GetOne {
 export interface StoreInput {
   url: string
   title: string
-  [key: string]: string
 }
