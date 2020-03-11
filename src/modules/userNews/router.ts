@@ -5,9 +5,9 @@ import Controller from './Controller'
 import userExists from './middleware/userExists'
 import { schema } from './util'
 
-const router = Router()
+const router = Router({ mergeParams: true })
 const controller = new Controller()
 
-router.get('/:userId/news', celebrate(schema.index), userExists(), wrapAsync(controller.index))
+router.get('/', celebrate(schema.index), userExists(), wrapAsync(controller.index))
 
 export default router

@@ -7,14 +7,10 @@ import userNews from './userNews'
 
 const router = Router()
 
-// /auth
 router.use('/auth', auth)
-// /news
 router.use('/news', news)
-// /news/:newsId/vote
-router.use('/news', vote)
-// /user
+router.use('/news/:newsId/vote', vote)
 router.use('/user', user)
-router.use('/user', userNews)
+router.use('/user/:userId/news', userNews)
 
 export default router
