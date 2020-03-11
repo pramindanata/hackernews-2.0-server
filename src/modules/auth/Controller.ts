@@ -5,7 +5,7 @@ import fs from 'fs'
 import * as RI from '~/interface'
 import config from '~/config'
 import * as I from './interface'
-import { generatePassword, generateToken } from './util'
+import { comparePassword, generatePassword, generateToken } from './util'
 
 class Controller {
   async register(req: Request<any, any, I.RegisterBody>, res: Response): Promise<Response> {
@@ -27,8 +27,21 @@ class Controller {
     })
   }
 
-  async login(req: Request, res: Response): Promise<Response> {
-    return res.send('yes')
+  async login(req: Request<any, any, I.LoginBody>, res: Response): Promise<Response> {
+    const { body } = req
+    const user: RI.User | undefined = await req.ctx.repo.user.findOne({ username: body.username })
+
+    if (!user) {
+      return res.boom.forbidden('Invalid credentials given')
+    }
+
+    if (await comparePassword(body.password, user.password)) {
+      return res.json({
+        token: await generateToken(user),
+      })
+    }
+
+    return res.boom.forbidden('Invalid credentials given')
   }
 }
 

@@ -19,7 +19,7 @@ export const schema = {
   login: {
     body: Joi.object({
       username: Joi.string()
-        .alphanum()
+        .alphaDash()
         .required(),
       password: Joi.string().required(),
     }),
