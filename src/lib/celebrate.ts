@@ -1,6 +1,7 @@
 import { RequestHandler, Request, Response, NextFunction } from 'express'
 import { celebrate, SchemaOptions, isCelebrate, CelebrateInternalError } from 'celebrate'
 import { BaseValidationOptions, ValidationError } from '@hapi/joi'
+import { config } from '~/lib/joi'
 
 import * as I from '~/interface'
 
@@ -23,10 +24,7 @@ function getMessages(error: ValidationError): I.JoiErrorMessages {
 }
 
 export default (schema: SchemaOptions): RequestHandler => {
-  const joiOpt: BaseValidationOptions = {
-    abortEarly: false,
-    convert: true,
-  }
+  const joiOpt: BaseValidationOptions = config
 
   return celebrate(schema, joiOpt)
 }
