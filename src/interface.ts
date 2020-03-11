@@ -13,7 +13,7 @@ export interface DBRepository {
 
 export interface RequestContext {
   repo: DBRepository
-  // user: User
+  user?: User
 }
 
 export interface JoiErrorMessages {
@@ -26,4 +26,9 @@ interface JoiStringSchema extends StringSchema {
 
 export interface CustomJoi extends JoiRoot {
   string: () => JoiStringSchema
+}
+
+export interface JWTPayload {
+  sub: number
+  iat: number
 }

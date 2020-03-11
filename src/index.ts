@@ -10,10 +10,11 @@ dotenv.config()
 import config from '~/config'
 import db from '~/db'
 import modules from '~/modules'
-
+import * as I from '~/interface'
 import Boom from '~/lib/Boom'
 import { errors } from '~/lib/celebrate'
 import repository from '~/lib/repository'
+import { getUserFromReq } from '~/util/auth'
 
 const app = express()
 
@@ -23,9 +24,12 @@ db.then(con => {
   app.use('/static', express.static(config.app.public))
 
   // Set context
-  app.use((req, res, next) => {
+  app.use(async (req, res, next) => {
+    const user: I.User | undefined = await getUserFromReq(req)
+
     req.ctx = {
       repo: repository.init(con),
+      user,
     }
 
     res.boom = new Boom(res)

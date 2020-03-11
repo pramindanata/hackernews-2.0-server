@@ -29,7 +29,12 @@ class Controller {
 
   async login(req: Request<any, any, I.LoginBody>, res: Response): Promise<Response> {
     const { body } = req
-    const user: RI.User | undefined = await req.ctx.repo.user.findOne({ username: body.username })
+    const user: RI.User | undefined = await req.ctx.repo.user.findOne(
+      { username: body.username },
+      {
+        select: ['id', 'password'],
+      },
+    )
 
     if (!user) {
       return res.boom.forbidden('Invalid credentials given')
@@ -42,6 +47,12 @@ class Controller {
     }
 
     return res.boom.forbidden('Invalid credentials given')
+  }
+
+  async me(req: Request, res: Response): Promise<Response> {
+    return res.json({
+      data: req.ctx.user,
+    })
   }
 }
 

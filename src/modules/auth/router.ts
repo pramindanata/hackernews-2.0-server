@@ -8,6 +8,7 @@ import credentialExists from './middleware/credentialExists'
 const router = Router()
 const controller = new Controller()
 
+router.get('/me', wrapAsync(controller.me))
 router.post('/register', celebrate(schema.register), credentialExists(), wrapAsync(controller.register))
 router.post('/login', celebrate(schema.login), wrapAsync(controller.login))
 
