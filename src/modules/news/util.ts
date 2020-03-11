@@ -12,7 +12,7 @@ export const schema = {
       order: Joi.string()
         .uppercase()
         .valid('ASC', 'DESC')
-        .default('desc'),
+        .default('DESC'),
       limit: Joi.number()
         .min(0)
         .max(15)

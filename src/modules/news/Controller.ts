@@ -1,6 +1,7 @@
 import { Response } from 'express'
 import { Request } from 'express-serve-static-core'
 import parseDomain from 'parse-domain'
+import { FindConditions } from 'typeorm'
 import { ILike } from '~/lib/typeorm'
 import * as RI from '~/interface'
 import * as I from './interface'
@@ -9,7 +10,7 @@ class Controller {
   async index(req: Request, res: Response): Promise<Response> {
     const { query }: { query: I.IndexQuery } = req
     const sortKey = 'createdAt'
-    let where
+    let where = {} as FindConditions<RI.News>[]
 
     if (query.search) {
       const like = `%${query.search}%`
@@ -25,7 +26,7 @@ class Controller {
       skip: query.skip,
       take: query.limit,
     })
-    const totalPromise: Promise<number> = req.ctx.repo.news.count()
+    const totalPromise: Promise<number> = req.ctx.repo.news.count({ where })
 
     const [news, total] = await Promise.all([newsPromise, totalPromise])
 

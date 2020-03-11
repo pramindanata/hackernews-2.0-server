@@ -1,11 +1,11 @@
 export interface IndexQuery {
   search?: string
-  sort: 'name' | 'join'
+  sort: 'username' | 'join'
   order: 'ASC' | 'DESC'
   limit: number
-  take: number
+  skip: number
 }
 
-export interface GetOneParams {
+export interface ShowParams {
   id: number
 }
