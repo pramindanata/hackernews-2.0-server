@@ -3,6 +3,7 @@ import auth from './auth'
 import news from './news'
 import user from './user'
 import vote from './vote'
+import userNews from './userNews'
 
 const router = Router()
 
@@ -14,5 +15,6 @@ router.use('/news', news)
 router.use('/news', vote)
 // /user
 router.use('/user', user)
+router.use('/user', userNews)
 
 export default router

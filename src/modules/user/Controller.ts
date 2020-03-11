@@ -22,7 +22,7 @@ class Controller {
       order: {
         [sortKey]: query.order,
       },
-      skip: query.skip,
+      skip: query.offset,
       take: query.limit,
     })
     const totalP: Promise<number> = req.ctx.repo.user.count({ where })

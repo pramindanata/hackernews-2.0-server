@@ -7,7 +7,7 @@ export interface IndexQuery {
   sort: 'published' | 'vote'
   order: 'ASC' | 'DESC'
   limit: number
-  skip: number
+  offset: number
 }
 
 export interface GetOneParams extends Params {

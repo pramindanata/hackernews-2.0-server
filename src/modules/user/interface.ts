@@ -3,7 +3,7 @@ export interface IndexQuery {
   sort: 'username' | 'join'
   order: 'ASC' | 'DESC'
   limit: number
-  skip: number
+  offset: number
 }
 
 export interface ShowParams {

@@ -35,11 +35,11 @@ class Controller {
     }
 
     const newsPromise: Promise<any[]> = newsQryBuilder
-      .skip(query.skip)
-      .take(query.limit)
       .orderBy(sortKey, query.order)
       .groupBy('news.id')
       .addGroupBy('user.id')
+      .offset(query.offset)
+      .limit(query.limit)
       .getRawMany()
 
     const totalPromise: Promise<number> = totalQryBuilder.getCount()
