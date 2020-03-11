@@ -27,6 +27,7 @@ db.then(con => {
   app.use(async (req, res, next) => {
     req.ctx = {
       repo: repository.init(con),
+      additional: {},
     }
     res.boom = new Boom(res)
 

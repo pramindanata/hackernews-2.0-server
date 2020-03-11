@@ -16,6 +16,9 @@ export interface DBRepository {
 export interface RequestContext {
   repo: DBRepository
   user?: User
+  additional: {
+    [key: string]: any
+  }
 }
 
 export interface JoiErrorMessages {

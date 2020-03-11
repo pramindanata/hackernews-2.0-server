@@ -8,7 +8,7 @@ const router = Router()
 
 router.use('/auth', auth)
 router.use('/news', news)
-router.use('/news/:newsId/vote', vote)
+router.use('/news', vote)
 router.use('/user', user)
 
 export default router

@@ -7,17 +7,23 @@ class Vote {
   @PrimaryGeneratedColumn()
   id!: number
 
+  @ManyToOne(
+    () => User,
+    user => user.votes,
+  )
+  user!: User
+
+  @ManyToOne(
+    () => News,
+    news => news.votes,
+  )
+  news!: News
+
   @Column()
   userId!: number
 
   @Column()
   newsId!: number
-
-  @ManyToOne(() => User)
-  user!: User
-
-  @ManyToOne(() => News)
-  news!: News
 
   @CreateDateColumn()
   createdAt!: string
