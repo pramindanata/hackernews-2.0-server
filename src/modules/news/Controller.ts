@@ -16,7 +16,7 @@ class Controller {
       where = [{ title: ILike(like) }, { url: ILike(like) }, { domain: ILike(like) }]
     }
 
-    const news: RI.News[] = await req.ctx.repo.news.find({
+    const newsPromise: Promise<RI.News[]> = req.ctx.repo.news.find({
       where,
       order: {
         [sortKey]: query.order,
@@ -24,7 +24,9 @@ class Controller {
       skip: query.skip,
       take: query.limit,
     })
-    const total: number = await req.ctx.repo.news.count()
+    const totalPromise: Promise<number> = req.ctx.repo.news.count()
+
+    const [news, total] = await Promise.all([newsPromise, totalPromise])
 
     return res.json({
       total,

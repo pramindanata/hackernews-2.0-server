@@ -1,9 +1,5 @@
 import { Joi } from 'celebrate'
 
-export const getWebFromUrl = (url: string): string => {
-  return url
-}
-
 export const schema = {
   index: {
     query: Joi.object({
