@@ -39,8 +39,22 @@ class Controller {
     })
   }
 
-  async show(req: Request, res: Response): Promise<Response> {
-    return res.send('yes')
+  async show(req: Request<I.ShowParams>, res: Response): Promise<Response> {
+    const { params } = req
+    const user: RI.User | undefined = await req.ctx.repo.user.findOne(params.id)
+
+    if (!user) {
+      return res.boom.notFound()
+    }
+
+    return res.json({
+      data: {
+        id: user.id,
+        username: user.username,
+        createdAt: user.createdAt,
+        photo: user.photo,
+      },
+    })
   }
 }
 

@@ -7,5 +7,6 @@ export interface IndexQuery {
 }
 
 export interface ShowParams {
-  id: number
+  id: string
+  [key: string]: string
 }
