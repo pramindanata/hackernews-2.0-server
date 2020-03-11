@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm'
+import News from '~/model/News'
 
 @Entity()
 class User {
@@ -16,6 +17,12 @@ class User {
 
   @Column()
   photo!: string
+
+  @OneToMany(
+    () => News,
+    news => news.user,
+  )
+  news!: News[]
 
   @CreateDateColumn()
   createdAt!: string

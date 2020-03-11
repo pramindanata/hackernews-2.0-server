@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm'
+import User from '~/model/User'
 
 @Entity()
 class News {
@@ -13,6 +14,15 @@ class News {
 
   @Column()
   url!: string
+
+  @ManyToOne(
+    () => User,
+    user => user.news,
+  )
+  user!: User
+
+  @Column()
+  userId!: number
 
   @CreateDateColumn()
   createdAt!: string
