@@ -3,8 +3,9 @@ import config from '~/config'
 
 import News from '~/model/News'
 import User from '~/model/User'
+import Vote from '~/model/Vote'
 
-const entities = [News, User]
+const entities = [News, User, Vote]
 const { db } = config
 const connection = createConnection({
   type: 'postgres',

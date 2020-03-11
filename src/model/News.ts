@@ -1,5 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm'
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm'
 import User from '~/model/User'
+import Vote from '~/model/Vote'
 
 @Entity()
 class News {
@@ -20,6 +29,12 @@ class News {
     user => user.news,
   )
   user!: User
+
+  @OneToMany(
+    () => Vote,
+    vote => vote.news,
+  )
+  votes!: Vote[]
 
   @Column()
   userId!: number

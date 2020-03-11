@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm'
 import News from '~/model/News'
+import Vote from '~/model/Vote'
 
 @Entity()
 class User {
@@ -24,13 +25,19 @@ class User {
   )
   news!: News[]
 
-  newsCount!: number
+  @OneToMany(
+    () => Vote,
+    vote => vote.user,
+  )
+  votes!: Vote[]
 
   @CreateDateColumn()
   createdAt!: string
 
   @UpdateDateColumn()
   updatedAt!: string
+
+  newsCount!: number
 }
 
 export default User
