@@ -12,9 +12,9 @@ import db from '~/db'
 import modules from '~/modules'
 import * as I from '~/interface'
 import Boom from '~/lib/Boom'
-import { errors } from '~/lib/celebrate'
 import repository from '~/lib/repository'
 import { getUserFromReq } from '~/util/auth'
+import errors from '~/shared/middleware/errors'
 
 const app = express()
 
@@ -25,14 +25,17 @@ db.then(con => {
 
   // Set context
   app.use(async (req, res, next) => {
-    const user: I.User | undefined = await getUserFromReq(req)
-
     req.ctx = {
       repo: repository.init(con),
-      user,
     }
-
     res.boom = new Boom(res)
+
+    try {
+      const user: I.User | undefined = await getUserFromReq(req)
+      req.ctx.user = user
+    } catch (err) {
+      next(err)
+    }
 
     next()
   })
