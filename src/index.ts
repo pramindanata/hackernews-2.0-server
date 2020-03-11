@@ -20,6 +20,7 @@ const app = express()
 db.then(con => {
   app.use(helmet())
   app.use(bodyParser.json())
+  app.use('/static', express.static(config.app.public))
 
   // Set context
   app.use((req, res, next) => {
