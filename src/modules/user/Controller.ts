@@ -1,6 +1,6 @@
 import { Response } from 'express'
 import { Request } from 'express-serve-static-core'
-import { FindConditions } from 'typeorm'
+import { FindConditions, Brackets } from 'typeorm'
 import * as RI from '~/interface'
 import { ILike } from '~/lib/typeorm'
 import * as I from './interface'
@@ -41,7 +41,11 @@ class Controller {
 
   async show(req: Request<I.ShowParams>, res: Response): Promise<Response> {
     const { params } = req
-    const user: RI.User | undefined = await req.ctx.repo.user.findOne(params.id)
+    const user: RI.User | undefined = await req.ctx.repo.user
+      .createQueryBuilder('user')
+      .loadRelationCountAndMap('user.newsCount', 'user.news', 'news')
+      .where('user.id = :id', { id: params.id })
+      .getOne()
 
     if (!user) {
       return res.boom.notFound()
@@ -53,6 +57,7 @@ class Controller {
         username: user.username,
         createdAt: user.createdAt,
         photo: user.photo,
+        newsCount: user.newsCount,
       },
     })
   }

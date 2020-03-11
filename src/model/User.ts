@@ -24,6 +24,8 @@ class User {
   )
   news!: News[]
 
+  newsCount!: number
+
   @CreateDateColumn()
   createdAt!: string
 
