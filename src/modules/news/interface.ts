@@ -4,7 +4,7 @@ interface Params {
 
 export interface IndexQuery {
   search?: string
-  sort: 'published' | 'upvote'
+  sort: 'published' | 'vote'
   order: 'ASC' | 'DESC'
   limit: number
   skip: number

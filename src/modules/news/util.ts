@@ -7,7 +7,7 @@ export const schema = {
         .optional()
         .empty(''),
       sort: Joi.string()
-        .valid('published', 'upvote')
+        .valid('published', 'vote')
         .default('published'),
       order: Joi.string()
         .uppercase()

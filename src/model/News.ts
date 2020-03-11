@@ -44,6 +44,16 @@ class News {
 
   @UpdateDateColumn()
   updatedAt!: string
+
+  /**
+   * https://github.com/typeorm/typeorm/issues/1822. Must wait for addSelectAndMap()
+   * to remove this prop from table.
+   */
+  // @Column({ select: false, nullable: true })
+  voteCount!: number
+
+  // helper prop for loadRelationCountAndMap (can't get boolean, so i use number as alternative)
+  upvoted!: number
 }
 
 export default News
