@@ -12,7 +12,8 @@ const router = Router()
 const controller = new Controller()
 
 router.get('/me', auth(), wrapAsync(controller.me))
-router.post('/register', celebrate(schema.register), credentialExists(), wrapAsync(controller.register))
+router.put('/me', auth(), celebrate(schema.update), credentialExists(false), wrapAsync(controller.update))
+router.post('/register', celebrate(schema.register), credentialExists(true), wrapAsync(controller.register))
 router.post('/login', celebrate(schema.login), wrapAsync(controller.login))
 
 export default router

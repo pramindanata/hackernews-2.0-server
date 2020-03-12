@@ -24,6 +24,19 @@ export const schema = {
       password: Joi.string().required(),
     }),
   },
+  update: {
+    body: Joi.object({
+      username: Joi.string()
+        .alphaDash()
+        .required(),
+      email: Joi.string()
+        .email()
+        .required(),
+      password: Joi.string()
+        .optional()
+        .empty(''),
+    }),
+  },
 }
 
 export const generatePassword = (password: string): Promise<string> => {

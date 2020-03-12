@@ -63,6 +63,21 @@ class Controller {
       },
     })
   }
+
+  async update(req: Request<any, any, I.UpdateBody>, res: Response): Promise<Response> {
+    const { user } = req.ctx
+    const { body } = req
+    const updated = await req.ctx.repo.user.save({
+      ...user,
+      username: body.username,
+      email: body.email,
+      password: body.password ? await generatePassword(body.password) : undefined,
+    })
+
+    return res.json({
+      data: updated,
+    })
+  }
 }
 
 export default Controller
