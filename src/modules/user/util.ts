@@ -15,7 +15,7 @@ export const schema = {
         .default('DESC'),
       limit: Joi.number()
         .min(0)
-        .max(15)
+        .max(16)
         .default(10),
       offset: Joi.number()
         .min(0)
