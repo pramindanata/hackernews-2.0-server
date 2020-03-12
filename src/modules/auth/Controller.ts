@@ -50,8 +50,17 @@ class Controller {
   }
 
   async me(req: Request, res: Response): Promise<Response> {
+    const newsCount: number = await req.ctx.repo.news.count({
+      where: {
+        userId: req.ctx.user?.id,
+      },
+    })
+
     return res.json({
-      data: req.ctx.user,
+      data: {
+        ...req.ctx.user,
+        newsCount,
+      },
     })
   }
 }
