@@ -9,31 +9,39 @@ export const schema = {
     body: Joi.object({
       username: Joi.string()
         .alphaDash()
+        .min(8)
         .required(),
       email: Joi.string()
         .email()
         .required(),
-      password: Joi.string().required(),
+      password: Joi.string()
+        .min(8)
+        .required(),
     }),
   },
   login: {
     body: Joi.object({
       username: Joi.string()
         .alphaDash()
+        .min(8)
         .required(),
-      password: Joi.string().required(),
+      password: Joi.string()
+        .min(8)
+        .required(),
     }),
   },
   update: {
     body: Joi.object({
       username: Joi.string()
         .alphaDash()
+        .min(8)
         .required(),
       email: Joi.string()
         .email()
         .required(),
       password: Joi.string()
         .optional()
+        .min(8)
         .empty(''),
     }),
   },

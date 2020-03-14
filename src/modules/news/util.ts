@@ -29,7 +29,9 @@ export const schema = {
   },
   store: {
     body: Joi.object({
-      title: Joi.string().required(),
+      title: Joi.string()
+        .max(75)
+        .required(),
       url: Joi.string()
         .uri()
         .required(),
