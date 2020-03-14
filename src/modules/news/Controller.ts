@@ -1,7 +1,7 @@
 import { Response } from 'express'
 import { Request } from 'express-serve-static-core'
 import parseDomain from 'parse-domain'
-import { SelectQueryBuilder } from 'typeorm'
+import { SelectQueryBuilder, getManager } from 'typeorm'
 import * as RI from '~/interface'
 import * as I from './interface'
 
@@ -146,7 +146,12 @@ class Controller {
       return res.boom.forbidden()
     }
 
-    await req.ctx.repo.news.delete(news.id)
+    await getManager().transaction(async () => {
+      await req.ctx.repo.vote.delete({
+        newsId: news.id,
+      })
+      await req.ctx.repo.news.delete(news.id)
+    })
 
     return res.json({
       id: news.id,
