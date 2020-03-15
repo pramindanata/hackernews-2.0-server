@@ -34,7 +34,7 @@ class Controller {
     if (user) {
       newsQryBuilder = newsQryBuilder
         .addSelect('COUNT(my_vote.id)', 'upvoted')
-        .leftJoin('news.votes', 'my_vote', 'my_vote.userId = :userId', { userId: user?.id })
+        .leftJoin('news.votes', 'my_vote', 'my_vote.userId = :authId', { authId: user?.id })
     }
 
     const newsPromise: Promise<any[]> = newsQryBuilder
