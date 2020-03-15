@@ -17,6 +17,7 @@ class Controller {
 
       newsQryBuilder = newsQryBuilder
         .where('news.title ILIKE :title', { title: like })
+        .orWhere('user.username ILIKE :username', { username: like })
         .orWhere('news.domain ILIKE :domain', { domain: like })
         .orWhere('news.url ILIKE :url', { url: like })
     }
