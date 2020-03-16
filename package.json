@@ -9,7 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-node": "nodemon dist/index.js",
-    "dev-ts": "tsc-w",
+    "dev-ts": "tsc -w",
+    "dev": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"red.bold,cyan.bold\" \"npm run dev-ts\" \"npm run dev-node\"",
     "lint": "eslint \"./src/**/*.{js,ts,tsx}\"",
     "start": "node dist/index.js"
   },
@@ -41,6 +42,7 @@
     "@types/node": "^13.9.0",
     "@typescript-eslint/eslint-plugin": "^2.22.0",
     "@typescript-eslint/parser": "^2.22.0",
+    "concurrently": "^5.1.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
