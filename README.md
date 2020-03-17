@@ -14,4 +14,5 @@ Hackernews Clone App for certification.
 2. Set DB configuration in `.env` file.
 3. Run `npm install` to install all depedencies.
 4. Create new DB on PostgreSQL. All tables will be synchronize (or create new one if not exists) after running `npm run dev` command.
-5. Run `npm run dev` to start dev server. Make sure DB also running.
+5. Create empty `./public/images` folder in this project root directory.
+6. Run `npm run dev` to start dev server. Make sure DB also running.
