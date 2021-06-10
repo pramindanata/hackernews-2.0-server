@@ -11,7 +11,6 @@ import config from '~/config'
 import db from '~/db'
 import modules from '~/modules'
 import * as I from '~/interface'
-import Boom from '~/lib/Boom'
 import repository from '~/lib/repository'
 import { getUserFromReq } from '~/util/auth'
 import errors from '~/shared/middleware/errors'
@@ -29,7 +28,6 @@ db.then(con => {
       repo: repository.init(con),
       additional: {},
     }
-    res.boom = new Boom(res)
 
     try {
       const user: I.User | undefined = await getUserFromReq(req)
@@ -48,4 +46,6 @@ db.then(con => {
   app.listen(config.app.port, () => {
     console.log(`Server listening on http://localhost:${config.app.port}`)
   })
+}).catch(err => {
+  console.log(err)
 })
